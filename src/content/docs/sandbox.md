@@ -107,7 +107,7 @@ same config field, nothing else changes:
 | This page's Playground demo | `memory.New()` - RAM, gone at exit |
 | `examples/basic` | `memory.New()` - RAM, gone when you stop the server |
 | `examples/fullapp` | SQLite file (`fullapp.db`) - survives restarts |
-| Production | `sqlstore` (Postgres/MySQL/SQLite) or `mongostore` - see [Storage &amp; migrations](/guide_site/guides/storage/) |
+| Production | `sqlstore` (Postgres/MySQL/SQLite) or `mongostore` - see [Storage &amp; migrations](/guides/storage/) |
 
 ## 2. GitHub Codespaces
 

@@ -13,10 +13,9 @@ export default defineConfig({
       ],
     ],
   },
-  // GitHub Pages project site. If you later attach a custom domain,
-  // change `site` and remove `base`.
-  site: 'https://go-dev-auth.github.io',
-  base: '/guide_site',
+  // Deployed on Vercel at the domain root. Update `site` if you attach
+  // a custom domain (it is used for the sitemap and canonical URLs).
+  site: 'https://guide-site.vercel.app',
   integrations: [
     starlight({
       title: 'go-dev-auth',

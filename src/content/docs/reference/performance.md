@@ -25,7 +25,7 @@ often*, not cheaper: sessions last 7 days by default.
 **2. Database round trips dominate everything else.** Two queries per
 authenticated request (~1 ms each on a managed database). The session
 cookie cache makes that zero - see
-[Sessions](/guide_site/guides/sessions/) for what it trades.
+[Sessions](/guides/sessions/) for what it trades.
 
 **3. Memory under a sign-in burst is bounded.** Each in-flight hash
 needs 32 MiB of scratch, so concurrency is capped at `GOMAXPROCS` and

@@ -77,8 +77,8 @@ that origin in `TrustedOrigins`.
 ## Two things before production
 
 1. **Swap the memory adapter for a real database** - see
-   [Storage &amp; migrations](/guide_site/guides/storage/).
+   [Storage &amp; migrations](/guides/storage/).
 2. **Tell it about your proxy** if anything (load balancer, ingress,
    CDN) sits in front of your process - see
-   [Deploying behind a proxy](/guide_site/guides/proxy/). Both defaults
+   [Deploying behind a proxy](/guides/proxy/). Both defaults
    are wrong in a different direction if you skip this.
