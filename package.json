@@ -1,0 +1,16 @@
+{
+  "name": "go-dev-auth-guide",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "^0.41.9",
+    "astro": "^7.2.7",
+    "rehype-external-links": "^3.0.0"
+  }
+}

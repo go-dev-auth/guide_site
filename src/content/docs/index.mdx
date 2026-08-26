@@ -1,0 +1,74 @@
+---
+title: go-dev-auth
+description: Authentication for Go with better-auth's feature set and a zero-dependency core.
+template: splash
+---
+
+<div class="lp">
+
+<div class="lp-hero">
+<div class="lp-copy">
+
+# Authentication for Go
+
+<p class="lp-tag">better-auth's feature set with a zero-dependency
+core. One config struct. Batteries included. Own your users.</p>
+
+<p class="lp-actions">
+  <a class="lp-btn" href="/guide_site/getting-started/">Get started</a>
+  <a class="lp-btn lp-btn-quiet" href="https://github.com/go-dev-auth/go-dev-auth" target="_blank" rel="noopener noreferrer">GitHub</a>
+</p>
+
+</div>
+<div class="lp-code">
+<div class="lp-code-bar"><span></span><span></span><span></span></div>
+
+```go
+auth, err := godevauth.New(godevauth.Config{
+	BaseURL:  "https://example.com",
+	Secret:   os.Getenv("AUTH_SECRET"),
+	Database: store,
+	EmailAndPassword: godevauth.
+		EmailPasswordConfig{Enabled: true},
+})
+
+mux.Handle("/api/auth/", auth.Handler())
+```
+
+</div>
+</div>
+
+<div class="lp-grid">
+  <div class="lp-card">
+    <h3>Zero dependencies</h3>
+    <p>The core is pure standard library. No framework, no ORM, no
+    transitive tree to audit.</p>
+  </div>
+  <div class="lp-card">
+    <h3>Proven on real databases</h3>
+    <p>Conformance suite, migrations and the full auth flow run against
+    live PostgreSQL, MySQL and SQLite in CI on every push.</p>
+  </div>
+  <div class="lp-card">
+    <h3>Batteries included</h3>
+    <p>Email and password, social sign-on with PKCE, sessions, 2FA,
+    magic links, organizations, admin, API keys and JWT.</p>
+  </div>
+  <div class="lp-card">
+    <h3>Security tied to tests</h3>
+    <p>A written threat model where every claim maps to the test that
+    pins it. Rate limiting on by default.</p>
+  </div>
+  <div class="lp-card">
+    <h3>Any router</h3>
+    <p>A plain <code>http.Handler</code>. Mounts on chi, echo, gorilla
+    or gin the same way.</p>
+  </div>
+  <div class="lp-card">
+    <h3>Refuses to start unsafe</h3>
+    <p>Misconfiguration is a startup error with a clear message, not a
+    production incident.</p>
+  </div>
+</div>
+
+</div>
