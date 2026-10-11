@@ -18,6 +18,11 @@ Sessions are database-backed: 32-byte random tokens in HMAC-signed
 cookies (with `__Secure-` prefixes on HTTPS), sliding expiration, and
 list/revoke endpoints. Raw tokens never appear in session listings.
 
+Sliding refresh applies only to sessions whose own lifetime is at least
+`Session.ExpiresIn`. A session minted with a shorter custom duration -
+admin impersonation is the built-in case - keeps a fixed expiry, so
+"refresh on activity" cannot quietly extend a deliberately short grant.
+
 ## The cookie cache
 
 An authenticated request normally costs two queries (session, then

@@ -34,15 +34,38 @@ A custom provider is a single declaration - `oauth2.New(oauth2.Spec{...})`.
 - **PKCE (S256)** on every authorization request.
 - **State** is pinned to the browser with a cookie *and* to the issuing
   provider, single-use and expiring.
-- **Automatic account linking** requires both a provider-asserted
-  verified email **and** that the provider is listed in
-  `Account.AccountLinking.TrustedProviders`. An unverified or self-set
-  address at the IdP cannot take over an existing local account.
+- **Automatic account linking** requires a provider-asserted verified
+  email, that the provider is listed in
+  `Account.AccountLinking.TrustedProviders`, **and** that the existing
+  local account has verified the address itself. Neither an unverified
+  address at the IdP nor a pre-registered, never-verified local account
+  can be used to take over the other side.
 - **ID tokens** ("sign in with X") are verified against the issuer's
   published JWKS - signature, `iss`, `aud` (plus `azp` for
-  multi-audience tokens), `exp` and the nonce. Keys are cached with a
-  bounded stale-serve window.
+  multi-audience tokens), `exp` and the nonce: the client mints a
+  single-use nonce at `POST /id-token/nonce` and the signed token must
+  echo it, so a token captured elsewhere cannot be replayed here. Keys
+  are cached with a bounded stale-serve window.
 
 Related endpoints: `POST /sign-in/social`, `GET|POST
-/callback/:provider`, `POST /link-social`, `POST /unlink-account`,
-`GET /list-accounts`, `POST /refresh-token`, `GET /account-info`.
+/callback/:provider`, `POST /id-token/nonce`, `POST /link-social`,
+`POST /unlink-account`, `GET /list-accounts`, `POST /refresh-token`,
+`GET /account-info`.
+
+## Apple
+
+Apple does not issue a static client secret - it wants a short-lived
+ES256-signed JWT. Hand `providers.Apple` the signing key and it
+generates one per token exchange:
+
+```go
+providers.Apple(providers.AppleConfig{
+	ClientID:   os.Getenv("APPLE_CLIENT_ID"), // the Services ID
+	TeamID:     os.Getenv("APPLE_TEAM_ID"),
+	KeyID:      os.Getenv("APPLE_KEY_ID"),
+	PrivateKey: os.Getenv("APPLE_PRIVATE_KEY"), // the .p8 file contents
+}),
+```
+
+A pre-generated static secret still works: set `ClientSecret` and leave
+the key fields empty.

@@ -45,7 +45,9 @@ if err := store.Migrate(context.Background()); err != nil { /* ... */ }
 
 ## Migrations do columns, not just tables
 
-Plugins add **columns to tables you already have**: `admin` adds
+Plugins add tables of their own (`passkey` and `sso` each bring one),
+and - the part that bites - **columns to tables you already have**:
+`admin` adds
 `role`, `banned`, `banReason`, `banExpires` to `user`; `twofactor` adds
 `twoFactorEnabled`; `organization` adds `activeOrganizationId` to
 `session`. `CREATE TABLE IF NOT EXISTS` does nothing for an existing
