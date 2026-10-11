@@ -28,11 +28,20 @@ atomically - database read access yields no usable links.
 
 **OAuth.** PKCE (S256); state pinned to the browser and the issuing
 provider, single-use, expiring. Automatic account linking requires a
-provider-verified email *and* a trusted provider.
+provider-verified email, a trusted provider, *and* a locally verified
+address on the account being linked into.
+
+**Passkeys.** WebAuthn challenges are single-use and expire; the
+origin and relying-party id in the assertion are checked, signatures
+(ES256/RS256/Ed25519) are verified in-package, and the signature
+counter guards the cloned-authenticator case.
 
 **CSRF.** State-changing requests are origin-checked against `BaseURL`
 + `TrustedOrigins`, falling back to `Sec-Fetch-Site` when no
-Origin/Referer is present.
+Origin/Referer is present. A wildcard entry (`https://*.example.com`,
+or scheme-agnostic `*.example.com`) matches strict subdomains only:
+the `*` must stand for at least one character, and an `Origin` equal
+to the pattern's own text is never trusted.
 
 **Sign-in guards.** Every sign-in path funnels through one gate, so
 two-factor and bans cannot be bypassed by choosing another method.

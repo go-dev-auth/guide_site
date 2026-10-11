@@ -7,14 +7,21 @@ description: One config struct, mirroring better-auth's options.
 
 - **`EmailAndPassword`** - enable/disable, min/max length, verification
   requirements, reset delivery, custom `PasswordHasher`.
-- **`EmailVerification`** - delivery and required-before-sign-in rules.
+- **`EmailVerification`** - delivery and required-before-sign-in rules,
+  plus an optional interstitial `ConfirmationPage` so mail-security
+  scanners (which fire GETs) cannot consume the one-time link before
+  the user clicks.
 - **`Session`** - `ExpiresIn`, `UpdateAge`, `FreshAge`, cookie cache.
 - **`User`** - additional fields, change-email, delete-user flows.
+  Changing a verified address is two-step: the approval link goes to
+  the *current* verified address, and the new address must then verify
+  itself before it gains recovery rights.
 - **`Account`** - linking rules, trusted providers, OAuth token
   encryption at rest.
 - **`Advanced`** - cookie prefix, cross-subdomain cookies, SameSite,
   proxy trust, custom ID generation, CSRF exemptions, auto-migration.
-- **`TrustedOrigins`** - CSRF origin allow-list, wildcard subdomains.
+- **`TrustedOrigins`** - CSRF origin allow-list; wildcard entries
+  (`https://*.example.com`) match strict subdomains only.
 - **`RateLimit`** - windows, per-path rules, pluggable store for
   multi-instance deployments.
 - **`Events`** - the audit hook.
